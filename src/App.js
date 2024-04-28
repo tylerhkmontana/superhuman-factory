@@ -1,22 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import TrainingPR from "./components/TrainingPR.js";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <main className="w-full flex flex-col items-center mt-8">
+          <h1 className="text-4xl">Welcome To Superhuman Factory</h1>
+          <br/>
+          <TrainingPR />
+        </main>
       </header>
     </div>
   );
