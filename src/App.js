@@ -9,6 +9,7 @@ function App() {
     const token = Cookie.get("token");
     if (token) {
       setProfile(jwtDecode(token));
+      console.log(jwtDecode(token));
     }
   }, []);
 
