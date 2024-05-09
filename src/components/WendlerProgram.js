@@ -1,11 +1,8 @@
-import { useState } from "react";
-
-export default function WendlerProgram({ currPr }) {
-  const { squat, bench, deadlift, overheadPress } = currPr || {
+export default function WendlerProgram({ pr }) {
+  const { squat, bench, deadlift } = pr || {
     squat: 0,
     bench: 0,
     deadlift: 0,
-    overheadPress: 0,
   };
   return (
     <div>
@@ -17,7 +14,6 @@ export default function WendlerProgram({ currPr }) {
             <td>Squat</td>
             <td>Bench</td>
             <td>Deadlift</td>
-            <td>Over Head Press</td>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +23,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.65}lbs x 5</td>
             <td>{bench * 0.65}lbs x 5</td>
             <td>{deadlift * 0.65}lbs x 5</td>
-            <td>{overheadPress * 0.65}lbs x 5</td>
           </tr>
           <tr>
             <td>Set 2 (75%)</td>
@@ -35,7 +30,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.75}lbs x 5</td>
             <td>{bench * 0.75}lbs x 5</td>
             <td>{deadlift * 0.75}lbs x 5</td>
-            <td>{overheadPress * 0.75}lbs x 5</td>
           </tr>
           <tr>
             <td>Set 3 (85%)</td>
@@ -43,7 +37,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.85}lbs x 5+</td>
             <td>{bench * 0.85}lbs x 5+</td>
             <td>{deadlift * 0.85}lbs x 5+</td>
-            <td>{overheadPress * 0.85}lbs x 5+</td>
           </tr>
         </tbody>
       </table>
@@ -58,7 +51,6 @@ export default function WendlerProgram({ currPr }) {
             <td>Squat</td>
             <td>Bench</td>
             <td>Deadlift</td>
-            <td>Over Head Press</td>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +60,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.7}lbs x 3</td>
             <td>{bench * 0.7}lbs x 3</td>
             <td>{deadlift * 0.7}lbs x 3</td>
-            <td>{overheadPress * 0.7}lbs x 3</td>
           </tr>
           <tr>
             <td>Set 2 (80%)</td>
@@ -76,7 +67,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.8}lbs x 3</td>
             <td>{bench * 0.8}lbs x 3</td>
             <td>{deadlift * 0.8}lbs x 3</td>
-            <td>{overheadPress * 0.8}lbs x 3</td>
           </tr>
           <tr>
             <td>Set 3 (90%)</td>
@@ -84,7 +74,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.9}lbs x 3+</td>
             <td>{bench * 0.9}lbs x 3+</td>
             <td>{deadlift * 0.9}lbs x 3+</td>
-            <td>{overheadPress * 0.9}lbs x 3+</td>
           </tr>
         </tbody>
       </table>
@@ -99,7 +88,6 @@ export default function WendlerProgram({ currPr }) {
             <td>Squat</td>
             <td>Bench</td>
             <td>Deadlift</td>
-            <td>Over Head Press</td>
           </tr>
         </thead>
         <tbody>
@@ -109,7 +97,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.75}lbs x 5</td>
             <td>{bench * 0.75}lbs x 5</td>
             <td>{deadlift * 0.75}lbs x 5</td>
-            <td>{overheadPress * 0.75}lbs x 5</td>
           </tr>
           <tr>
             <td>Set 2 (85%)</td>
@@ -117,7 +104,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.85}lbs x 3</td>
             <td>{bench * 0.85}lbs x 3</td>
             <td>{deadlift * 0.85}lbs x 3</td>
-            <td>{overheadPress * 0.85}lbs x 3</td>
           </tr>
           <tr>
             <td>Set 3 (95%)</td>
@@ -125,7 +111,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.95}lbs x 1+</td>
             <td>{bench * 0.95}lbs x 1+</td>
             <td>{deadlift * 0.95}lbs x 1+</td>
-            <td>{overheadPress * 0.95}lbs x 1+</td>
           </tr>
         </tbody>
       </table>
@@ -140,7 +125,6 @@ export default function WendlerProgram({ currPr }) {
             <td>Squat</td>
             <td>Bench</td>
             <td>Deadlift</td>
-            <td>Over Head Press</td>
           </tr>
         </thead>
         <tbody>
@@ -150,7 +134,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.4}lbs x 5</td>
             <td>{bench * 0.4}lbs x 5</td>
             <td>{deadlift * 0.4}lbs x 5</td>
-            <td>{overheadPress * 0.4}lbs x 5</td>
           </tr>
           <tr>
             <td>Set 2 (50%)</td>
@@ -158,7 +141,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.5}lbs x 5</td>
             <td>{bench * 0.5}lbs x 5</td>
             <td>{deadlift * 0.5}lbs x 5</td>
-            <td>{overheadPress * 0.5}lbs x 5</td>
           </tr>
           <tr>
             <td>Set 3 (60%)</td>
@@ -166,7 +148,6 @@ export default function WendlerProgram({ currPr }) {
             <td>{squat * 0.6}lbs x 5</td>
             <td>{bench * 0.6}lbs x 5</td>
             <td>{deadlift * 0.6}lbs x 5</td>
-            <td>{overheadPress * 0.6}lbs x 5</td>
           </tr>
         </tbody>
       </table>

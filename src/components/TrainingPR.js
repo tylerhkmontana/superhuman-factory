@@ -1,86 +1,97 @@
-import "./TrainingPr.css";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
-export default function TrainingPr({ currPr, setCurrPr }) {
-  function updateCurrPr(e) {
-    e.preventDefault();
+export default function TrainingPr() {
+  const { user, updateUser } = useAuth();
+  const { pr } = user;
+  const [newPr, setNewPr] = useState({
+    squat: 0,
+    bench: 0,
+    deadlift: 0,
+  });
 
-    const [squat, bench, deadlift, overheadPress] = e.target;
-    let pr = {
-      squat: parseInt(squat.value),
-      bench: parseInt(bench.value),
-      deadlift: parseInt(deadlift.value),
-      overheadPress: parseInt(overheadPress.value),
-    };
-
-    localStorage.setItem("currPr", JSON.stringify(pr));
-    setCurrPr(pr);
-  }
-
-  function resetCurrPr() {
-    localStorage.removeItem("currPr");
-    setCurrPr(null);
+  function updatePr() {
+    axios
+      .put(process.env.REACT_APP_API_URL + "/user/updatePr", { user, newPr })
+      .then((response) => {
+        console.log(response);
+        updateUser("pr", newPr);
+      })
+      .catch((error) => console.log(error));
   }
   return (
     <div>
       <div>
-        {currPr ? (
+        {pr ? (
           <div className="flex flex-col items-stretch">
             <div className="flex gap-4">
               <div>
                 <h3 className="text-xl font-bold">Your PR</h3>
                 <p className="flex justify-between gap-2">
-                  Squat: <span>{currPr.squat} lbs</span>
+                  Squat: <span>{pr.squat} lbs</span>
                 </p>
                 <p className="flex justify-between gap-2">
-                  Bench: <span>{currPr.bench} lbs</span>
+                  Bench: <span>{pr.bench} lbs</span>
                 </p>
                 <p className="flex justify-between gap-2">
-                  Deadlift: <span>{currPr.deadlift} lbs</span>
-                </p>
-                <p className="flex justify-between gap-2">
-                  Over Head Press: <span>{currPr.overheadPress} lbs</span>
+                  Deadlift: <span>{pr.deadlift} lbs</span>
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold">Training PR (90% of PR)</h3>
                 <p className="flex justify-between gap-2">
-                  Squat: <span>{currPr.squat * 0.9} lbs</span>
+                  Squat: <span>{pr.squat * 0.9} lbs</span>
                 </p>
                 <p className="flex justify-between gap-2">
-                  Bench: <span>{currPr.bench * 0.9} lbs</span>
+                  Bench: <span>{pr.bench * 0.9} lbs</span>
                 </p>
                 <p className="flex justify-between gap-2">
-                  Deadlift: <span>{currPr.deadlift * 0.9} lbs</span>
-                </p>
-                <p className="flex justify-between gap-2">
-                  Over Head Press: <span>{currPr.overheadPress * 0.9} lbs</span>
+                  Deadlift: <span>{pr.deadlift * 0.9} lbs</span>
                 </p>
               </div>
             </div>
             <br />
-            <button onClick={resetCurrPr}>Reset</button>
+            <button>Update</button>
           </div>
         ) : (
-          <form className="flex flex-col gap-2" onSubmit={updateCurrPr}>
+          <div className="flex flex-col gap-2">
             <h2 className="font-bold">Please update your PR (lbs)</h2>
             <div className="flex justify-between gap-4">
               <label>Squat (lb):</label>
-              <input type="number" defaultValue={0} name="squat" />
+              <input
+                type="number"
+                value={newPr.squat}
+                name="squat"
+                onChange={(e) =>
+                  setNewPr((prev) => ({ ...prev, squat: e.target.value }))
+                }
+              />
             </div>
             <div className="flex justify-between gap-4">
               <label>Bench (lb):</label>
-              <input type="number" defaultValue={0} name="bench" />
+              <input
+                type="number"
+                value={newPr.bench}
+                name="bench"
+                onChange={(e) =>
+                  setNewPr((prev) => ({ ...prev, bench: e.target.value }))
+                }
+              />
             </div>
             <div className="flex justify-between gap-4">
               <label>Deadlift (lb):</label>
-              <input type="number" defaultValue={0} name="deadlift" />
+              <input
+                type="number"
+                value={newPr.deadlift}
+                name="deadlift"
+                onChange={(e) =>
+                  setNewPr((prev) => ({ ...prev, deadlift: e.target.value }))
+                }
+              />
             </div>
-            <div className="flex justify-between gap-4">
-              <label>Over Head Press (lb):</label>
-              <input type="number" defaultValue={0} name="overheadPress" />
-            </div>
-            <button>Update</button>
-          </form>
+            <button onClick={updatePr}>Update</button>
+          </div>
         )}
       </div>
     </div>

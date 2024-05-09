@@ -1,9 +1,13 @@
 import TrainingPr from "../components/TrainingPr.js";
+import { useAuth } from "../context/AuthContext.js";
 
-export default function Home({ currPr, setCurrPr }) {
+export default function Home() {
+  const { user } = useAuth();
+
   return (
     <div className="w-96">
-      <TrainingPr currPr={currPr} setCurrPr={setCurrPr} />
+      <p>Welcome {user.given_name}</p>
+      <TrainingPr user={user} />
       <br />
       <h2 className="text-xl font-bold">Welcom all the weaklings!</h2>
       <br />

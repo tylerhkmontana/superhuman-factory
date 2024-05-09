@@ -1,48 +1,31 @@
-import { jwtDecode } from "jwt-decode";
-import { useState, useEffect } from "react";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
-import Cookie from "js-cookie";
+import { useAuth } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+//Page Component
+import Login from "./pages/Login";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Program from "./pages/Program";
 function App() {
-  const [profile, setProfile] = useState(null);
-  useEffect(() => {
-    const token = Cookie.get("token");
-    if (token) {
-      setProfile(jwtDecode(token));
-      console.log(jwtDecode(token));
-    }
-  }, []);
+  const { user } = useAuth();
 
-  const responseMessage = (response) => {
-    const token = response.credential;
-    setProfile(jwtDecode(token));
-    Cookie.set("token", token, { expires: 7, secure: true });
-  };
-  const errorMessage = (error) => {
-    console.log(error);
-  };
-
-  const logout = () => {
-    Cookie.remove("token");
-    setProfile(null);
-  };
   return (
     <div className="App">
       <main className="w-full flex flex-col items-center mt-8">
-        <h1 className="text-4xl">Welcome To Superhuman Factory</h1>
-        <br />
-
-        {profile ? (
-          <div>
-            <p>Welcome!</p>
-            <button onClick={logout}>Logout</button>
-          </div>
+        {user ? (
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/program" element={<Program />} />
+                <Route path="*" element={<Home />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
         ) : (
-          <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+          <Login />
         )}
       </main>
-      <br />
-      <br />
     </div>
   );
 }

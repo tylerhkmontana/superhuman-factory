@@ -1,11 +1,13 @@
-import TrainingPr from "../components/TrainingPr.js";
+import { useAuth } from "../context/AuthContext.js";
+
 import WendlerProgram from "../components/WendlerProgram.js";
 
-export default function Program({ currPr }) {
+export default function Program() {
+  const { user } = useAuth();
   return (
     <div className="flex flex-col items-center">
       <br />
-      <WendlerProgram currPr={currPr} />
+      <WendlerProgram pr={user.pr} />
     </div>
   );
 }
