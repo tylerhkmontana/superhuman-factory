@@ -11,20 +11,21 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = Cookie.get("token");
-    if (token) {
-      setUser(jwtDecode(token));
+    const user = Cookie.get("user");
+    if (user) {
+      console.log(JSON.parse(user));
+      setUser(JSON.parse(user));
     }
   }, []);
 
   const login = (token) => {
     const userData = jwtDecode(token);
     axios
-      .post(process.env.REACT_APP_API_URL + "/user/newUser", userData)
+      .post(process.env.REACT_APP_API_URL + "/user/login", userData)
       .then((response) => {
-        console.log(response);
-        Cookie.set("token", token, { expires: 7, secure: true });
-        setUser(userData);
+        const user = response.data.user;
+        Cookie.set("user", JSON.stringify(user), { expires: 7, secure: true });
+        setUser(user);
       })
       .catch((error) => {
         console.log(error);
@@ -32,7 +33,7 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    Cookie.remove("token");
+    Cookie.remove("user");
     googleLogout();
     setUser(null);
   };
@@ -43,7 +44,7 @@ export function AuthProvider({ children }) {
       [key]: value,
     };
     setUser(updatedUser);
-    Cookie.set("token", sign(updatedUser, "secret"), {
+    Cookie.set("user", JSON.stringify(updatedUser), {
       expires: 7,
       secure: true,
     });
