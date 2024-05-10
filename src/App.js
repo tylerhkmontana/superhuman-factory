@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      <main className="w-full flex flex-col items-center mt-8">
+      <main className="p-4 w-screen flex flex-col items-center">
         {user ? (
           <BrowserRouter>
             <Routes>

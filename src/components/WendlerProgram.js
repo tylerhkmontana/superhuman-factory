@@ -15,7 +15,7 @@ export default function WendlerProgram({ pr }) {
     <div>
       <h1 className="font-bold text-4xl">Wendler's 5/3/1</h1>
       <br />
-      <div>
+      <div className="text-sm sm:text-base">
         <h2>Training PR (90% of PR)</h2>
         <p>
           Sqaut: {squat}lb * 0.9 = {squat * 0.9}lb
@@ -27,8 +27,9 @@ export default function WendlerProgram({ pr }) {
           Deadlift: {deadlift}lb * 0.9 = {deadlift * 0.9}lb
         </p>
       </div>
+      <br />
       <h2 className="font-bold">Week 1</h2>
-      <table>
+      <table className="text-xs sm:text-base">
         <thead>
           <tr>
             <td></td>
@@ -65,7 +66,7 @@ export default function WendlerProgram({ pr }) {
       <br />
 
       <h2 className="font-bold">Week 2</h2>
-      <table>
+      <table className="text-xs sm:text-base">
         <thead>
           <tr>
             <td></td>
@@ -102,7 +103,7 @@ export default function WendlerProgram({ pr }) {
       <br />
 
       <h2 className="font-bold">Week 3</h2>
-      <table>
+      <table className="text-xs sm:text-base">
         <thead>
           <tr>
             <td></td>
@@ -139,7 +140,7 @@ export default function WendlerProgram({ pr }) {
       <br />
 
       <h2 className="font-bold">Week 4 (Deloading)</h2>
-      <table>
+      <table className="text-xs sm:text-base">
         <thead>
           <tr>
             <td></td>
