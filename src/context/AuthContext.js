@@ -21,7 +21,9 @@ export function AuthProvider({ children }) {
   const login = (token) => {
     const userData = jwtDecode(token);
     const api_url = `${
-      process.env.PROD ? REACT_APP_API_URL_PROD : REACT_APP_API_URL_DEV
+      process.env.PROD
+        ? process.env.REACT_APP_API_URL_PROD
+        : process.env.REACT_APP_API_URL_DEV
     }/user/login`;
     axios
       .post(api_url, userData)
