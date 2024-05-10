@@ -20,8 +20,11 @@ export function AuthProvider({ children }) {
 
   const login = (token) => {
     const userData = jwtDecode(token);
+    const api_url = `${
+      process.env.PROD ? REACT_APP_API_URL_PROD : REACT_APP_API_URL_DEV
+    }/user/login`;
     axios
-      .post(process.env.REACT_APP_API_URL + "/user/login", userData)
+      .post(api_url, userData)
       .then((response) => {
         const user = response.data.user;
         Cookie.set("user", JSON.stringify(user), { expires: 7, secure: true });

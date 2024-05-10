@@ -13,8 +13,12 @@ export default function PR() {
   });
 
   function updatePr() {
+    const api_url = `${
+      process.env.PROD ? REACT_APP_API_URL_PROD : REACT_APP_API_URL_DEV
+    }/user/updatePr`;
+
     axios
-      .put(process.env.REACT_APP_API_URL + "/user/updatePr", { user, newPr })
+      .put(api_url, { user, newPr })
       .then((response) => {
         setIsUpdating(false);
         updateUser("pr", newPr);
