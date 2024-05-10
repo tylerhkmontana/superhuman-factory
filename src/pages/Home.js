@@ -1,4 +1,4 @@
-import TrainingPr from "../components/TrainingPr.js";
+import PR from "../components/PR.js";
 import { useAuth } from "../context/AuthContext.js";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="w-96">
       <p>Welcome {user.given_name}</p>
-      <TrainingPr user={user} />
+      <PR user={user} />
       <br />
       <h2 className="text-xl font-bold">Welcom all the weaklings!</h2>
       <br />

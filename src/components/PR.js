@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
-export default function TrainingPr() {
+export default function PR() {
   const { user, updateUser } = useAuth();
   const { pr } = user;
+  const [isUpdating, setIsUpdating] = useState(false);
   const [newPr, setNewPr] = useState({
     squat: 0,
     bench: 0,
@@ -15,7 +16,7 @@ export default function TrainingPr() {
     axios
       .put(process.env.REACT_APP_API_URL + "/user/updatePr", { user, newPr })
       .then((response) => {
-        console.log(response);
+        setIsUpdating(false);
         updateUser("pr", newPr);
       })
       .catch((error) => console.log(error));
@@ -23,7 +24,7 @@ export default function TrainingPr() {
   return (
     <div>
       <div>
-        {pr ? (
+        {pr && !isUpdating ? (
           <div className="flex flex-col items-stretch">
             <div className="flex gap-4">
               <div>
@@ -38,21 +39,9 @@ export default function TrainingPr() {
                   Deadlift: <span>{pr.deadlift} lbs</span>
                 </p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold">Training PR (90% of PR)</h3>
-                <p className="flex justify-between gap-2">
-                  Squat: <span>{pr.squat * 0.9} lbs</span>
-                </p>
-                <p className="flex justify-between gap-2">
-                  Bench: <span>{pr.bench * 0.9} lbs</span>
-                </p>
-                <p className="flex justify-between gap-2">
-                  Deadlift: <span>{pr.deadlift * 0.9} lbs</span>
-                </p>
-              </div>
             </div>
             <br />
-            <button>Update</button>
+            <button onClick={() => setIsUpdating(true)}>Update</button>
           </div>
         ) : (
           <div className="flex flex-col gap-2">

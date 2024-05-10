@@ -9,9 +9,6 @@ export default function Nav() {
       <li>
         <Link to="/program">Program</Link>
       </li>
-      <li>
-        <Link to="/record">Record</Link>
-      </li>
     </ul>
   );
 }
