@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { googleLogout } from "@react-oauth/google";
 import Cookie from "js-cookie";
 import axios from "axios";
-import sign from "jwt-encode";
+import { apiUrl } from "../data/apiUrl";
 
 const AuthContext = createContext();
 
@@ -20,13 +20,8 @@ export function AuthProvider({ children }) {
 
   const login = (token) => {
     const userData = jwtDecode(token);
-    const api_url = `${
-      process.env.PROD
-        ? process.env.REACT_APP_API_URL_PROD
-        : process.env.REACT_APP_API_URL_DEV
-    }/user/login`;
     axios
-      .post(api_url, userData)
+      .post(`${apiUrl}/user/login`, userData)
       .then((response) => {
         const user = response.data.user;
         Cookie.set("user", JSON.stringify(user), { expires: 7, secure: true });

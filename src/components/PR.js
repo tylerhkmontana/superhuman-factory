@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
+import { apiUrl } from "../data/apiUrl";
 
 export default function PR() {
   const { user, updateUser } = useAuth();
@@ -13,14 +14,8 @@ export default function PR() {
   });
 
   function updatePr() {
-    const api_url = `${
-      process.env.PROD
-        ? process.env.REACT_APP_API_URL_PROD
-        : process.env.REACT_APP_API_URL_DEV
-    }/user/updatePr`;
-
     axios
-      .put(api_url, { user, newPr })
+      .put(`${apiUrl}/user/updatePr`, { user, newPr })
       .then((response) => {
         setIsUpdating(false);
         updateUser("pr", newPr);
