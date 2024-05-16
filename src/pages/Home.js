@@ -1,14 +1,10 @@
-import PR from "../components/PR.js";
 import { useAuth } from "../context/AuthContext.js";
 
 export default function Home() {
   const { user } = useAuth();
 
   return (
-    <div className="w-96">
-      <p>Welcome {user.given_name}</p>
-      <PR user={user} />
-      <br />
+    <div className="w-full">
       <h2 className="text-xl font-bold">Welcom all the weaklings!</h2>
       <br />
       <p>

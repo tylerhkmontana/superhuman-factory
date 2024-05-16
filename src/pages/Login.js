@@ -15,7 +15,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center max-w-96">
-      <img className="w-64" src="/logo.png" alt="logo image" />
+      <img className="w-64" src="/logo.png" alt="logo" />
       <br />
       <p className="text-center">
         Lorem Ipsum is simply dummy text of the printing and typesetting

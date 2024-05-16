@@ -1,13 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import Nav from "../components/Nav";
 
 export default function Layout() {
-  const { logout } = useAuth();
   return (
-    <div>
+    <div className="w-full p-2 pt-8">
       <Nav />
-      <button onClick={logout}>Logout</button>
       <Outlet />
     </div>
   );
