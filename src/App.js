@@ -7,6 +7,7 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Program from "./pages/Program";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 
 //Fontawesome library
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -32,7 +33,13 @@ function App() {
             </Routes>
           </BrowserRouter>
         ) : (
-          <Login />
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Login />} />
+            </Routes>
+          </BrowserRouter>
         )}
       </main>
     </div>

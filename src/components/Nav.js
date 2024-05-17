@@ -8,9 +8,7 @@ export default function Nav() {
   return (
     <div className="flex gap-4 fixed items-center justify-between bg-gray-400 w-full top-0 left-0 px-4 py-2">
       <div>
-        <h1 style={{ fontFamily: '"Squada One", sans-serif' }}>
-          Superhuman Factory
-        </h1>
+        <h1 className="text-xl font-title">Superhuman Factory</h1>
       </div>
       <FontAwesomeIcon
         icon="fa-solid fa-caret-down"

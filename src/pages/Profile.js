@@ -2,7 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import PR from "../components/PR";
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <div className="w-full">
@@ -11,6 +11,8 @@ export default function Profile() {
       </p>
       <br />
       <PR user={user} />
+      <br />
+      <button onClick={logout}>Sign Out</button>
     </div>
   );
 }

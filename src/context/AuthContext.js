@@ -13,13 +13,14 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const user = Cookie.get("user");
     if (user) {
-      console.log(JSON.parse(user));
+      // console.log(JSON.parse(user));
       setUser(JSON.parse(user));
     }
   }, []);
 
   const login = (token) => {
     const userData = jwtDecode(token);
+    console.log(token);
     axios
       .post(`${apiUrl}/user/login`, userData)
       .then((response) => {

@@ -1,8 +1,4 @@
-import { useAuth } from "../context/AuthContext.js";
-
 export default function Home() {
-  const { user } = useAuth();
-
   return (
     <div className="w-full">
       <h2 className="text-xl font-bold">Welcom all the weaklings!</h2>
