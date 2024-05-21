@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Page Component
 import Login from "./pages/Login";
-import Layout from "./pages/Layout";
+import Layout from "./pages/LayoutProtected";
 import Home from "./pages/Home";
 import Program from "./pages/Program";
 import Profile from "./pages/Profile";
@@ -21,26 +21,21 @@ function App() {
   return (
     <div className="App">
       <main className="p-4 w-screen flex flex-col items-center">
-        {user ? (
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="/program" element={<Program />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="*" element={<Home />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        ) : (
-          <BrowserRouter>
-            <Routes>
-              <Route index element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<Login />} />
-            </Routes>
-          </BrowserRouter>
-        )}
+        {/**********************************************
+         Redirect pages based on the user state
+        ***********************************************/}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/program" element={<Program />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<Home />} />
+            </Route>
+            <Route></Route>
+          </Routes>
+        </BrowserRouter>
       </main>
     </div>
   );
