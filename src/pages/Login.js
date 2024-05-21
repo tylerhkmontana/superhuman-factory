@@ -1,21 +1,28 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import dateWithoutTimezone from '../utils/dateConverter';
 
 export default function Login() {
-  const { login, registeringUser } = useAuth();
+  const { user, login, registeringUser, registerUser } = useAuth();
   const [newUser, setNewUser] = useState({});
 
   useEffect(() => {
     if (registeringUser) {
-      const { given_name, family_name, email } = registeringUser;
+      const { given_name, family_name, email, sub } = registeringUser;
       setNewUser({
+        sub,
         email,
         given_name,
         family_name,
       });
     }
   }, [registeringUser]);
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   const responseMessage = (response) => {
     const token = response.credential;
@@ -26,9 +33,42 @@ export default function Login() {
     console.log(error);
   };
 
-  const registerUser = (e) => {
+  const register = (e) => {
     e.preventDefault();
-    console.log(newUser);
+    let {
+      given_name,
+      family_name,
+      email,
+      squat,
+      bench,
+      deadlift,
+      dob,
+      gender,
+      weight,
+      sub,
+    } = newUser;
+
+    let rightNow = new Date();
+    rightNow = rightNow.toISOString();
+
+    const user = {
+      sub,
+      email,
+      given_name,
+      family_name,
+      gender,
+      dob: dateWithoutTimezone(new Date(dob)),
+      weight,
+      pr: {
+        squat,
+        bench,
+        deadlift,
+      },
+      joined: rightNow,
+      updated: rightNow,
+    };
+
+    registerUser(user);
   };
 
   const updateForm = (e) => {
@@ -52,7 +92,7 @@ export default function Login() {
 
           <form
             className="flex flex-col gap-2"
-            onSubmit={(e) => registerUser(e)}
+            onSubmit={(e) => register(e)}
             onChange={(e) => updateForm(e)}
           >
             <h3 className="font-bold text-lg">Personal Info</h3>
@@ -87,7 +127,7 @@ export default function Login() {
                 name="weight"
                 min={1}
                 max={3000}
-                step={'.01'}
+                step={'.1'}
                 required
               />
             </div>
@@ -104,7 +144,7 @@ export default function Login() {
                 name="squat"
                 min={1}
                 max={3000}
-                step={'0.01'}
+                step={'0.1'}
                 required
               />
             </div>
@@ -115,7 +155,7 @@ export default function Login() {
                 name="bench"
                 min={1}
                 max={3000}
-                step={'0.01'}
+                step={'0.1'}
                 required
               />
             </div>
@@ -126,7 +166,7 @@ export default function Login() {
                 name="deadlift"
                 min={1}
                 max={3000}
-                step={'0.01'}
+                step={'0.1'}
                 required
               />
             </div>

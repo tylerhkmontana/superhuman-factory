@@ -21,9 +21,6 @@ function App() {
   return (
     <div className="App">
       <main className="w-screen flex flex-col items-center">
-        {/**********************************************
-         Redirect pages based on the user state
-        ***********************************************/}
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
