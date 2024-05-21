@@ -25,6 +25,12 @@ button {
 
 input {
   border: 1px solid black;
+  width: 150px;
+  padding: 2px 4px;
+}
+
+select {
+  border: 1px solid black;
 }
 
 table {
