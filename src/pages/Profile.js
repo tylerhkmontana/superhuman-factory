@@ -1,12 +1,34 @@
 import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Profile() {
   const { user, logout } = useAuth();
   const [isUpdating, setIsUpdating] = useState(false);
+  const [newProfile, setNewProfile] = useState({});
 
-  console.log(new Date(user.dob));
+  useEffect(() => {
+    setNewProfile({ ...user });
+  }, []);
+
+  const updateForm = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    if (key === "squat" || key === "deadlift" || key === "bench") {
+      setNewProfile((prev) => ({
+        ...prev,
+        pr: {
+          ...prev.pr,
+          [key]: value,
+        },
+      }));
+    } else {
+      setNewProfile((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    }
+  };
 
   const confirmUpdate = () => {
     const updatedWhen = Date.now() - new Date(user.updated).getTime();
@@ -23,8 +45,17 @@ export default function Profile() {
     }
   };
 
+  const updateProfile = (e) => {
+    e.preventDefault();
+    console.log(newProfile);
+  };
+
   return (
     <div className="w-full">
+      <p className="text-red-600 w-full text-center">
+        *You can update your profile only once a day*
+      </p>
+      <br />
       <div className="w-full flex justify-between items-center">
         <h2 className="text-2xl font-bold">Profile</h2>
         <span>
@@ -45,7 +76,11 @@ export default function Profile() {
         </span>
       </div>
       <br />
-      <form className="flex flex-col gap-2">
+      <form
+        className="flex flex-col gap-2"
+        onChange={(e) => updateForm(e)}
+        onSubmit={(e) => updateProfile(e)}
+      >
         <h3 className="font-bold text-lg">Personal Info</h3>
         <div className="flex justify-between">
           <label>First Name: </label>
@@ -97,7 +132,7 @@ export default function Profile() {
           <input
             type="date"
             name="dob"
-            defaultValue
+            defaultValue={user.dob.split("T")[0]}
             disabled={!isUpdating}
             required
           />
