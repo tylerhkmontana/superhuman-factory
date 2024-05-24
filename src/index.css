@@ -23,14 +23,15 @@ button {
   padding: 4px 8px;
 }
 
-input {
+input, select {
   border: 1px solid black;
   width: 150px;
   padding: 2px 4px;
 }
 
-select {
-  border: 1px solid black;
+input:disabled {
+  border: none;
+  background-color: transparent;
 }
 
 table {
