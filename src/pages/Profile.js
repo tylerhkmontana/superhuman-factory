@@ -3,17 +3,18 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Profile() {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const [isUpdating, setIsUpdating] = useState(false);
   const [newProfile, setNewProfile] = useState({});
 
   useEffect(() => {
     setNewProfile({ ...user });
-  }, []);
+  }, [user]);
 
   const updateForm = (e) => {
-    const key = e.target.name;
-    const value = e.target.value;
+    let key = e.target.name;
+    let value = e.target.value;
+
     if (key === "squat" || key === "deadlift" || key === "bench") {
       setNewProfile((prev) => ({
         ...prev,
@@ -45,9 +46,33 @@ export default function Profile() {
     }
   };
 
-  const updateProfile = (e) => {
+  const updateProfile = async (e) => {
     e.preventDefault();
-    console.log(newProfile);
+
+    let profile;
+
+    try {
+      profile = await updateUser(newProfile);
+    } catch (error) {
+      console.log(error);
+      profile = user;
+    }
+
+    setIsUpdating(false);
+    // Reset form values
+    const inputGroups = e.target.elements;
+
+    Object.keys(profile).forEach((key) => {
+      if (key === "pr") {
+        Object.keys(profile.pr).forEach(
+          (k) => (inputGroups[k].value = profile.pr[k])
+        );
+      } else if (key === "dob") {
+        inputGroups[key].value = profile[key].split("T")[0];
+      } else if (Object.keys(inputGroups).includes(key)) {
+        inputGroups[key].value = profile[key];
+      }
+    });
   };
 
   return (

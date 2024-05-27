@@ -4,6 +4,7 @@ import { googleLogout } from "@react-oauth/google";
 import Cookie from "js-cookie";
 import axios from "axios";
 import { apiUrl } from "../data/apiUrl";
+import dateWithoutTimezone from "../utils/dateConverter";
 
 const AuthContext = createContext();
 
@@ -14,7 +15,9 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const user = Cookie.get("user");
     if (user) {
-      setUser(JSON.parse(user));
+      let profile = JSON.parse(user);
+      delete profile["token"];
+      setUser(profile);
     }
   }, []);
 
@@ -75,17 +78,40 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const updateUser = (key, value) => {
-    const updatedUser = {
-      ...user,
-      [key]: value,
-    };
-    setUser(updatedUser);
-    Cookie.set("user", JSON.stringify(updatedUser), {
-      expires: 7,
-      secure: true,
+  const updateUser = (newProfile) =>
+    new Promise((resolve, reject) => {
+      const currUser = JSON.parse(Cookie.get("user"));
+
+      if (currUser) {
+        let updated = new Date();
+        updated = updated.toISOString();
+
+        newProfile = {
+          ...newProfile,
+          dob: dateWithoutTimezone(new Date(newProfile.dob)),
+          updated,
+        };
+
+        axios
+          .put(`${apiUrl}/user/update`, { newProfile, user: currUser })
+          .then((response) => {
+            const { user } = response.data;
+            Cookie.set("user", JSON.stringify(user), {
+              expires: 7,
+              secure: true,
+            });
+            setUser(user);
+
+            resolve({ ...user });
+          })
+          .catch((error) => {
+            console.log(error);
+            reject("Failed to update user");
+          });
+      } else {
+        reject("No signed in user");
+      }
     });
-  };
 
   const value = useMemo(
     () => ({ user, registeringUser, login, logout, registerUser, updateUser }),
