@@ -83,13 +83,9 @@ export function AuthProvider({ children }) {
       const currUser = JSON.parse(Cookie.get("user"));
 
       if (currUser) {
-        let updated = new Date();
-        updated = updated.toISOString();
-
         newProfile = {
           ...newProfile,
           dob: dateWithoutTimezone(new Date(newProfile.dob)),
-          updated,
         };
 
         axios
