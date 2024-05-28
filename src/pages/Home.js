@@ -1,16 +1,18 @@
 export default function Home() {
   return (
     <div className="w-full">
-      <h2 className="text-xl font-bold">Welcom all the weaklings!</h2>
+      <h2 className="text-xl font-bold">Welcome to Superhuman Factory</h2>
+      <br />
+      <img className="w-full" src="/physical_training_for_business_men.jpg" />
       <br />
       <p>
-        I made this website to make all of you stronger. I will continue to
-        update the website by adding more features and strength programs.
+        Many problems of life can be easily fixed by just having a greater
+        strength.
       </p>
       <br />
       <p>
-        All you gotta do is remain consistent, then you will get stronger
-        eventually.
+        Our goal is to help people build their strength more efficiently through
+        weight training programs.
       </p>
     </div>
   );
