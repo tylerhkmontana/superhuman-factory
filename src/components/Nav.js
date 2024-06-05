@@ -6,30 +6,48 @@ export default function Nav() {
   const [isToggled, setIsToggled] = useState(false);
 
   return (
-    <div className="flex gap-4 fixed items-center justify-between bg-gray-400 w-full top-0 left-0 px-4 py-2">
-      <div>
+    <>
+      {/* <div>
         <h1 className="text-xl font-title">Superhuman Factory</h1>
-      </div>
-      <FontAwesomeIcon
-        icon="fa-solid fa-caret-down"
-        onClick={() => setIsToggled((prev) => !prev)}
-      />
-      {isToggled && (
-        <ul
-          className="flex flex-col bg-gray-400 gap-2 absolute right-2 top-12 p-2"
-          onClick={() => setIsToggled(false)}
-        >
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/program">Program</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-        </ul>
-      )}
-    </div>
+      </div> */}
+
+      <ul
+        className="fixed bottom-0 left-0 justify-evenly w-screen flex bg-gray-400 gap-2 p-2"
+        onClick={() => setIsToggled(false)}
+      >
+        <li>
+          <Link to="/">
+            <div className="flex flex-col items-center">
+              <FontAwesomeIcon icon="fa-solid fa-house" />
+              <p className="text-xs">Home</p>
+            </div>
+          </Link>
+        </li>
+        <li>
+          <Link to="/training">
+            <div className="flex flex-col items-center">
+              <FontAwesomeIcon icon="fa-solid fa-dumbbell" />
+              <p className="text-xs">Training</p>
+            </div>
+          </Link>
+        </li>
+        <li>
+          <Link to="/log">
+            <div className="flex flex-col items-center">
+              <FontAwesomeIcon icon="fa-solid fa-calendar" />
+              <p className="text-xs">Log</p>
+            </div>
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile">
+            <div className="flex flex-col items-center">
+              <FontAwesomeIcon icon="fa-solid fa-user" />
+              <p className="text-xs">Profile</p>
+            </div>
+          </Link>
+        </li>
+      </ul>
+    </>
   );
 }

@@ -7,7 +7,7 @@ export default function LayoutProtected() {
 
   if (!user) return <Navigate to="/login" replace />;
   return (
-    <div className="w-full p-6 pt-16">
+    <div className="w-full p-6">
       <Nav />
       <Outlet />
     </div>

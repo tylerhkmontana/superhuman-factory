@@ -34,6 +34,10 @@ input:disabled {
   background-color: transparent;
 }
 
+input[type="radio"] {
+  width: auto;
+}
+
 table {
   border: 1px solid black;
 }

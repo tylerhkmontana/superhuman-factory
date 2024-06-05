@@ -15,9 +15,15 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const user = Cookie.get("user");
     if (user) {
-      let profile = JSON.parse(user);
-      delete profile["token"];
-      setUser(profile);
+      try {
+        let profile = JSON.parse(user);
+        delete profile["token"];
+        setUser(profile);
+      } catch (error) {
+        console.log(error);
+        Cookie.remove("user");
+        setUser(null);
+      }
     }
   }, []);
 

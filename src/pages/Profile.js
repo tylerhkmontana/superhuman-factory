@@ -77,7 +77,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full" exit={{ opacity: 0 }}>
       <p className="text-red-600 w-full text-center">
         *You can update your profile only once a day*
       </p>

@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="w-full">
+    <div className="w-full" exit={{ opacity: 0 }}>
       <h2 className="text-xl font-bold">Welcome to Superhuman Factory</h2>
       <br />
       <img className="w-full" src="/physical_training_for_business_men.jpg" />

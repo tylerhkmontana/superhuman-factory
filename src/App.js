@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Layout from "./pages/LayoutProtected";
 import Home from "./pages/Home";
-import Program from "./pages/Program";
+import Training from "./pages/Training";
+import Log from "./pages/Log";
 import Profile from "./pages/Profile";
 
 //Fontawesome library
@@ -22,7 +23,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="/program" element={<Program />} />
+              <Route path="/training" element={<Training />} />
+              <Route path="/log" element={<Log />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<Home />} />
             </Route>
