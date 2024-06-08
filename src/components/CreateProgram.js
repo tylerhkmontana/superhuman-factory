@@ -3,7 +3,7 @@ import WhatIsCycle from "./WhatIsCycle";
 
 export default function CreateProgram({ isToggled, setIsToggled }) {
   const [program, setProgram] = useState({
-    name: null,
+    title: null,
     num_weeks: 1,
     training_goal: "",
   });
@@ -46,7 +46,7 @@ export default function CreateProgram({ isToggled, setIsToggled }) {
             <h4>What is the name of your program</h4>
             <input
               className="w-auto"
-              name="name"
+              name="title"
               placeholder="ex) 5/3/1 Strength"
               required
             />

@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import CreateProgram from "../components/CreateProgram";
+import axios from "axios";
+import { apiUrl } from "../data/apiUrl";
 
 export default function Training() {
   const [programs, setPrograms] = useState({
@@ -9,7 +11,16 @@ export default function Training() {
   });
   const [createProgram, setCreateProgram] = useState(false);
   useEffect(() => {
-    // Check Local Storage, if empty, then request server for custom routines & premade programs
+    axios
+      .get(`${apiUrl}/program/premade`)
+      .then((response) => {
+        const { data } = response;
+
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
   return (
     <div className="w-full flex flex-col gap-16">
