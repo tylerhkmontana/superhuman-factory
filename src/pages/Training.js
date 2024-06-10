@@ -16,7 +16,10 @@ export default function Training() {
       .then((response) => {
         const { data } = response;
 
-        console.log(data);
+        setPrograms((prev) => ({
+          ...prev,
+          premade: [...data],
+        }));
       })
       .catch((error) => {
         console.log(error);
@@ -41,9 +44,14 @@ export default function Training() {
         {programs.premade.length === 0 ? (
           <p>Empty</p>
         ) : (
-          <div>
-            {programs.custom.map((pr, i) => (
-              <div key={i}>{pr.name}</div>
+          <div className="flex flex-col gap-2 mt-8">
+            {programs.premade.map((program, i) => (
+              <div className="border-2 p-2" key={i}>
+                <p className="font-bold">{program.title}</p>
+                <p className="text-sm">{program.num_weeks} week(s)</p>
+                <br />
+                <p>{program.training_goal}</p>
+              </div>
             ))}
           </div>
         )}
