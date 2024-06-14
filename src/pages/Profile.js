@@ -34,7 +34,7 @@ export default function Profile() {
   const confirmUpdate = () => {
     const updatedWhen = Date.now() - new Date(user.updated).getTime();
     const twentyFourHours = 8.64e7;
-    console.log(new Date(user.updated).getTime(), Date.now());
+
     if (updatedWhen > twentyFourHours) {
       setIsUpdating(true);
     } else {

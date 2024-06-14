@@ -1,7 +1,13 @@
 import { useState } from "react";
-import WhatIsCycle from "./WhatIsCycle";
+import axios from "axios";
+import Cookie from "js-cookie";
+import { apiUrl } from "../data/apiUrl";
 
-export default function CreateProgram({ isToggled, setIsToggled }) {
+export default function CreateProgram({
+  isToggled,
+  setIsToggled,
+  setPrograms,
+}) {
   const [program, setProgram] = useState({
     title: null,
     num_weeks: 1,
@@ -18,7 +24,19 @@ export default function CreateProgram({ isToggled, setIsToggled }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(program);
+    const currUser = JSON.parse(Cookie.get("user"));
+
+    axios
+      .post(`${apiUrl}/program/create`, { program, user: currUser })
+      .then((response) => {
+        const customPrograms = response.data;
+        setPrograms((prev) => ({
+          ...prev,
+          custom: [...customPrograms],
+        }));
+        setIsToggled(false);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

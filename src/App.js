@@ -2,11 +2,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Page Component
 import Login from "./pages/Login";
-import Layout from "./pages/LayoutProtected";
+import LayoutProtected from "./pages/LayoutProtected";
 import Home from "./pages/Home";
 import Training from "./pages/Training";
 import Log from "./pages/Log";
 import Profile from "./pages/Profile";
+import Program from "./pages/Program";
 
 //Fontawesome library
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -21,10 +22,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<LayoutProtected />}>
               <Route index element={<Home />} />
               <Route path="/training" element={<Training />} />
               <Route path="/log" element={<Log />} />
+              <Route path="/program/:id" element={<Program />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<Home />} />
             </Route>
