@@ -5,6 +5,7 @@ import axios from "axios";
 import { apiUrl } from "../data/apiUrl";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Cookie from "js-cookie";
 
 export default function Training() {
   const { user } = useAuth();
@@ -29,6 +30,19 @@ export default function Training() {
         console.log(error);
       });
   }, []);
+
+  const deleteProgram = (programId) => {
+    const currUser = JSON.parse(Cookie.get("user"));
+    axios
+      .delete(`${apiUrl}/program/delete`, { programId, user: currUser })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="w-full flex flex-col gap-16 pb-16">
       <div>
@@ -39,7 +53,13 @@ export default function Training() {
           <div className="flex flex-col gap-2 mt-8">
             {programs.custom.map((program, i) => (
               <Link key={i} to={`/program/${program.id}`}>
-                <div className="border-2 p-2">
+                <div className="border-2 p-2 relative">
+                  <button
+                    className="absolute top-2 right-2 bg-red-500 text-white"
+                    onClick={() => deleteProgram(program.id)}
+                  >
+                    Delete
+                  </button>
                   <p className="font-bold">{program.title}</p>
                   <p className="text-sm">{program.num_weeks} week(s)</p>
                   <br />
