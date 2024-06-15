@@ -25,9 +25,13 @@ export default function CreateProgram({
   const submitHandler = (e) => {
     e.preventDefault();
     const currUser = JSON.parse(Cookie.get("user"));
+    let newProgram = { ...program, routine: {} };
+    for (let i = 1; i <= program.num_weeks; i++) {
+      newProgram.routine[`week${i}`] = { sessions: [] };
+    }
 
     axios
-      .post(`${apiUrl}/program/create`, { program, user: currUser })
+      .post(`${apiUrl}/program/create`, { program: newProgram, user: currUser })
       .then((response) => {
         const customPrograms = response.data;
         setPrograms((prev) => ({

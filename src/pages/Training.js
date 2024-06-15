@@ -39,7 +39,11 @@ export default function Training() {
         ) : (
           <div className="flex flex-col gap-2 mt-8">
             {programs.custom.map((program, i) => (
-              <Link key={i} to={`/program/custom/${program.id}`}>
+              <Link
+                key={i}
+                to={`/program/custom/${program.id}`}
+                state={program}
+              >
                 <div className="border-2 p-2 relative">
                   <p className="font-bold">{program.title}</p>
                   <p className="text-sm">{program.num_weeks} week(s)</p>
