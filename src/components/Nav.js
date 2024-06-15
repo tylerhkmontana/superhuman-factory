@@ -12,7 +12,7 @@ export default function Nav() {
       </div> */}
 
       <ul
-        className="fixed bottom-0 left-0 justify-evenly w-screen flex bg-gray-400 gap-2 p-2"
+        className="fixed bottom-0 left-0 justify-evenly w-screen flex bg-gray-400 gap-2 p-2 z-50"
         onClick={() => setIsToggled(false)}
       >
         <li>

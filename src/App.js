@@ -7,7 +7,8 @@ import Home from "./pages/Home";
 import Training from "./pages/Training";
 import Log from "./pages/Log";
 import Profile from "./pages/Profile";
-import Program from "./pages/Program";
+import CustomProgram from "./pages/Program/CustomProgram";
+import PremadeProgram from "./pages/Program/PremadeProgram";
 
 //Fontawesome library
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -26,7 +27,8 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/training" element={<Training />} />
               <Route path="/log" element={<Log />} />
-              <Route path="/program/:id" element={<Program />} />
+              <Route path="/program/custom/:id" element={<CustomProgram />} />
+              <Route path="/program/premade/:id" element={<PremadeProgram />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<Home />} />
             </Route>
