@@ -79,7 +79,11 @@ export default function Training() {
         <FontAwesomeIcon
           size="3x"
           icon="fa-solid fa-circle-plus"
-          onClick={() => setCreateProgram(true)}
+          onClick={() =>
+            programs.custom.length >= 3
+              ? window.alert("You cannot create more than 3 custom programs.")
+              : setCreateProgram(true)
+          }
         />
       </div>
     </div>
