@@ -9,6 +9,7 @@ import Log from "./pages/Log";
 import Profile from "./pages/Profile";
 import CustomProgram from "./pages/Program/CustomProgram";
 import PremadeProgram from "./pages/Program/PremadeProgram";
+import CreateSession from "./pages/Program/CreateSession";
 
 //Fontawesome library
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -28,6 +29,10 @@ function App() {
               <Route path="/training" element={<Training />} />
               <Route path="/log" element={<Log />} />
               <Route path="/program/custom/:id" element={<CustomProgram />} />
+              <Route
+                path="/program/custom/:id/:week"
+                element={<CreateSession />}
+              />
               <Route path="/program/premade/:id" element={<PremadeProgram />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<Home />} />
