@@ -14,7 +14,9 @@ export default function CustomProgram() {
     axios
       .get(`${apiUrl}/program/${id}`)
       .then((response) => {
-        console.log(response.data);
+        const customProgram = response.data[0];
+
+        setProgram(customProgram);
       })
       .catch((error) => console.log(error));
   });
