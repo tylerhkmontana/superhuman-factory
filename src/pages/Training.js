@@ -15,7 +15,7 @@ export default function Training() {
   const [createProgram, setCreateProgram] = useState(false);
   useEffect(() => {
     axios
-      .get(`${apiUrl}/program?authorId=${user.sub}`)
+      .get(`${apiUrl}/program?authorid=${user.sub}`)
       .then((response) => {
         const { data } = response;
         const { custom, premade } = data;

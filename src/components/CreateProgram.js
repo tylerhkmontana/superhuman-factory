@@ -27,7 +27,7 @@ export default function CreateProgram({
     const currUser = JSON.parse(Cookie.get("user"));
     let newProgram = { ...program, routine: {} };
     for (let i = 1; i <= program.num_weeks; i++) {
-      newProgram.routine[`week${i}`] = { sessions: [] };
+      newProgram.routine[`week${i}`] = { sessions: {} };
     }
 
     axios
