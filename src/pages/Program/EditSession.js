@@ -10,7 +10,6 @@ export default function EditSession() {
   const workouts = program.routine[week].sessions[session];
   const [addWorkout, setAddWorkout] = useState(false);
 
-  console.log(workouts);
   return (
     <div>
       <AddWorkout isToggled={addWorkout} setIsToggled={setAddWorkout} />
