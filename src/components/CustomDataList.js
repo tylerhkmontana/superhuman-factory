@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function CustomDataList({ options, name, selectHandler }) {
-  const [keyword, setKeyword] = useState("");
+export default function CustomDataList({ options, name, value, setValue }) {
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
@@ -18,14 +17,14 @@ export default function CustomDataList({ options, name, selectHandler }) {
   const inputHandler = (e) => {
     setIsSearching(true);
     const input = e.target.value;
-    setKeyword(input);
+    setValue(input);
   };
 
   const selectOption = (opt) => {
     setIsSearching(false);
-    setKeyword(opt);
-    selectHandler(opt);
+    setValue(opt);
   };
+
   return (
     <div className="relative">
       <input
@@ -33,7 +32,7 @@ export default function CustomDataList({ options, name, selectHandler }) {
         id="searchBar"
         onChange={(e) => inputHandler(e)}
         name={name}
-        value={keyword}
+        value={value}
         autoComplete="off"
         onFocus={() => setIsSearching(true)}
         required
@@ -43,7 +42,7 @@ export default function CustomDataList({ options, name, selectHandler }) {
         className="absolute w-full max-h-24 top-8 overflow-y-auto bg-white flex flex-col gap-2"
       >
         {options.map((opt, i) => {
-          if (opt.includes(keyword) && keyword !== "" && isSearching)
+          if (opt.includes(value) && value !== "" && isSearching)
             return (
               <span
                 className="px-2 hover:bg-gray-700 hover:text-white"

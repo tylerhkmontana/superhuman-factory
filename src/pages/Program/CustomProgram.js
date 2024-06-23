@@ -52,15 +52,13 @@ export default function CustomProgram() {
         user: currUser,
       })
       .then((response) => {
-        console.log(response.data);
+        const updatedProgram = response.data;
 
         setProgram({ ...updatedProgram });
       })
       .catch((error) => {
         console.log(error);
       });
-
-    console.log(updatedProgram);
   };
   return (
     <div className="w-full">
