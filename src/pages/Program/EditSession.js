@@ -2,13 +2,51 @@ import { useLocation, useParams, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import AddExercise from "../../components/AddExercise";
+import axios from "axios";
+import Cookie from "js-cookie";
+import { apiUrl } from "../../data/apiUrl";
 
 export default function EditSession() {
   const { week, session, programId } = useParams();
   const location = useLocation();
-  const { program } = location.state;
-  const exercises = program.routine[week].sessions[session];
+  let { program } = location.state;
+  const [exercises, setExercises] = useState(
+    program.routine[week].sessions[session]
+  );
   const [toggleAddExercise, setToggleAddExercise] = useState(false);
+
+  const repSelector = (rep_type, reps) => {
+    if (rep_type === "to_failure") {
+      return "To Failure";
+    } else if (rep_type === "min_reps_to_failure") {
+      return `${reps}+`;
+    } else {
+      return reps;
+    }
+  };
+
+  const deleteExercise = (index) => {
+    let updatedExercises = [...exercises];
+    updatedExercises.splice(index, 1);
+    const currUser = JSON.parse(Cookie.get("user"));
+
+    let updatedProgram = { ...program };
+    updatedProgram.routine[week].sessions[session] = updatedExercises;
+
+    axios
+      .put(`${apiUrl}/program/update/routine`, {
+        program: updatedProgram,
+        user: currUser,
+      })
+      .then((response) => {
+        program = response.data;
+
+        setExercises(updatedExercises);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -29,16 +67,37 @@ export default function EditSession() {
         ) : (
           <div className="flex flex-col gap-2">
             {exercises.map((exercise, i) => (
-              <div className="flex flex-col gap-2 border-2 p-2" key={i}>
-                <h4 className="font-bold">{exercise.name}</h4>
-                <p>Load: {exercise.load_type}</p>
-                <p># of sets: {exercise.num_sets}</p>
-                <p>
-                  # of reps:{" "}
-                  {exercise.rep_type === "to_failure"
-                    ? "to_failure"
-                    : exercise.num_reps}
-                </p>
+              <div
+                className="flex items-stretch border-2 p-2 gap-2 relative"
+                key={i}
+              >
+                <span
+                  className="text-red-500 absolute top-2 right-2 font-bold"
+                  onClick={() => deleteExercise(i)}
+                >
+                  X
+                </span>
+                {/* <div className="flex flex-col justify-between">
+                  <span className="rounded-full bg-gray-500 w-6 h-6 flex items-center justify-center text-white text-sm">
+                    &uarr;
+                  </span>
+                  <span className="rounded-full bg-gray-500 w-6 h-6 flex items-center justify-center text-white text-sm">
+                    &darr;
+                  </span>
+                </div> */}
+                <div className="flex flex-col justify-between gap-2">
+                  <h4 className="font-bold">{exercise.name}</h4>
+                  <p>
+                    {`${exercise.num_sets} x ${repSelector(
+                      exercise.rep_type,
+                      exercise.num_reps
+                    )} (${
+                      exercise.load_type === "percent_onerm"
+                        ? `${exercise.percentage}% 1RM`
+                        : "Training Weight"
+                    })`}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
